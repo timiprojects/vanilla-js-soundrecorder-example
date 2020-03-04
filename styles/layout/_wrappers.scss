@@ -1,0 +1,143 @@
+.wrapper {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 5rem;
+    justify-content: center;
+    //align-items: center;
+    height: 100vh;
+
+    @include responsive(md) {
+        padding:0;
+    }
+}
+
+.content {
+    position: relative;
+    width: 100%;
+    min-height: 65%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 2rem;
+
+    @include responsive(md) {
+        padding: 1rem;
+    }
+
+    &-list {
+        position: relative;
+        padding-block-start: none;
+        list-style: none;
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+
+        &--placeholder {
+            display: block;
+            font-size: 1rem;
+            text-align: center;
+            width: 100%;
+            color: $color-info;
+        }
+
+        &--listitem {
+            display: grid;
+            grid-template-columns: 50px auto 30px;
+            align-items: center;
+            column-gap: 5px;
+            width: 100%;
+            background: $color-light;
+            padding: 1rem 2rem;
+            box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.2);
+            border-radius: 10px;
+            margin: 1rem 0;
+
+            @include responsive(md) {
+                grid-template-columns: 40px auto 30px;
+                padding: 1rem;
+            }
+
+            &-content {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                width: 100%;
+                height: 100%;
+                align-self: center;
+            }
+
+            &-audio {
+                display: block;
+                width: 100%;
+                height: 20px;
+            }
+
+            &-title {
+                display: block;
+                margin-bottom: 5px;
+                font-size: 1rem;
+                font-weight: bold;
+                width: 100%;
+            }
+
+            &-button {
+                display: block;
+                border: 1px solid $color-secondary;
+                background: none;
+                border-radius: 50%;
+                height: 50px;
+                text-align: center;
+                cursor: pointer;
+
+                @include responsive(md) {
+                    height: 40px;
+                    font-size: .8rem;
+                }
+
+                &-text {
+                    display: flex;
+                    height: 100%;
+                    width: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0;
+                    margin: 0;
+                    font-size: x-large;
+                    color: $color-info;
+                }
+            }
+        }
+    }
+}
+.timer {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    &-digits {
+        display: inline-block;
+        font-size: 3rem;
+        transition: all 1s ease-in-out;
+        padding: 0 5px;
+        text-align: center;
+    }
+    &-separator {
+        display: inline-block;
+        font-size: x-large;
+        justify-self: center;
+        text-align: center;
+    }
+}

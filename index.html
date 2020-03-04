@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recorder</title>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <!-- <button class="button button-primary button-rounded button-rounded-large" data-click="record">Send</button> -->
+            <div class="button--checkbox">
+                <input type="checkbox" name="record" id="record">
+                <label for="record" id=record>
+                    <span id="context"><small class="fas fa-play"></small></span>
+                </label>
+            </div>
+            <div class="timer">
+                <h1 class="timer-digits" data-time="minute">00</h1>
+                <span class="timer-separator">:</span>
+                <h1 class="timer-digits" data-time="second">00</h1>
+                <span class="timer-separator">:</span>
+                <h1 class="timer-digits" data-time="milli">00</h1>
+            </div>
+            <div class="content">
+                <ul class="content-list" id="items">
+                    <!-- <li class="content-list--listitem">
+                        <button class="content-list--listitem-button">play</button>
+                        <span class="content-list--listitem-title">Title</span>
+                    </li> -->
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src='app.js'></script>
+</body>
+</html>
