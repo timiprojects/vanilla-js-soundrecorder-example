@@ -1,5 +1,5 @@
 # vanilla-js-soundrecorder-example
-This vanilla light web application allows you to record in audio format 
+This responsive vanilla light web application allows you to record in audio format 
 
 The file is saved in localStorage.
 

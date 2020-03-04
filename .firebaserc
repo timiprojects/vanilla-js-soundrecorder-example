@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "pushtest-9862e"
+  },
+  "targets": {
+    "pushtest-9862e": {
+      "hosting": {
+        "recorder": [
+          "soundrecorder"
+        ]
+      }
+    }
+  }
+}
