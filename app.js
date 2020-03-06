@@ -91,20 +91,24 @@ let oldItems = JSON.parse(localStorage.getItem('savedItems')) || [];
 function addTodosToPage() {
     let ul = document.getElementById("items");
     let listFragment = document.createDocumentFragment();
-    if(oldItems.length > 0) {
+    if (oldItems.length > 0) {
         for (var i = 0; i < oldItems.length; i++) {
             var oldItem = oldItems[i];
             var li = createNewTodo(oldItem);
             listFragment.appendChild(li);
         }
     } else {
-        let placeholder = document.createElement("span")
-        placeholder.classList.add("content-list--placeholder")
-        placeholder.textContent = "No saved recordings. Press record to start one!"
-        listFragment.appendChild(placeholder)
+        showMessage(listFragment)
     }
     ul.appendChild(listFragment);
     //localStorage.clear()
+}
+
+function showMessage(fragment) {
+    let placeholder = document.createElement("span")
+    placeholder.classList.add("content-list--placeholder")
+    placeholder.textContent = "No saved recordings. Press record to start one!"
+    fragment.appendChild(placeholder)
 }
 
 function addTodoToPage(item) {
@@ -112,7 +116,7 @@ function addTodoToPage(item) {
     placeholder && placeholder.remove()
     let ul = document.getElementById("items");
     let li = createNewTodo(item);
-    ul.before(li);
+    ul.insertBefore(li, ul.firstChild);
 }
 
 function createNewTodo(item) {
@@ -135,33 +139,54 @@ function createNewTodo(item) {
     div.appendChild(title)
     div.appendChild(audio)
 
-    let btn = document.createElement("a")
+    let downloadbtn = document.createElement("a")
     let span = document.createElement("span")
     span.classList.add("content-list--listitem-button-text")
-    btn.classList.add("content-list--listitem-button")
-    
-    btn.href = item.link
-    btn.download = item.title+".webm"
-
     span.innerHTML = '<small class="fas fa-download"></small>'
 
-    btn.appendChild(span)
+    downloadbtn.classList.add("content-list--listitem-button")
+    downloadbtn.href = item.link
+    downloadbtn.download = item.title + ".webm"
+    downloadbtn.appendChild(span)
 
-    // if(item.link) {
-    //     btn.addEventListener("click", function() {
-    //         //const audioURL = URL.createObjectURL()
-    //         //const audio = new Audio(audioURL)
-    //         //audio.play()
-    //         console.log(item.link)
-    //     })
-    // }
+    let delBtn = document.createElement("button")
+    delBtn.classList.add("content-list--listitem-delete")
+    delBtn.innerHTML = `<i class="fas fa-trash"></i>`
 
-    li.appendChild(btn)
+    let ul = document.getElementById("items");
+    let listFragment = document.createDocumentFragment();
+
+    delBtn.onclick = () => {
+        
+        let spliced = oldItems.findIndex(x => x.title === item.title)
+        oldItems.splice(spliced, 1)
+
+        localStorage.setItem('savedItems', JSON.stringify(oldItems));
+
+        li.classList.add("del") 
+        setTimeout(()=>{
+            li && ul.removeChild(li)
+            if(oldItems.length === 0) {
+                showMessage(listFragment) 
+                ul.appendChild(listFragment)
+            }
+        },500)
+            
+            //showMessage(listFragment)
+            //ul.appendChild(listFragment)
+    }
+
+    li.appendChild(downloadbtn)
     li.appendChild(div);
+    li.appendChild(delBtn)
+
     return li;
 }
 
-
+function resetPage() {
+    localStorage.clear()
+    location.reload()
+}
 
 window.onload = () => {
     addTodosToPage()
@@ -177,14 +202,14 @@ window.onload = () => {
         navigator.permissions.query({
             name: 'microphone'
         }).then((status) => {
-            console.log(status)
+            //console.log(status)
             if (status.state == "granted") {
-                console.log("hurray")
+                //console.log("hurray")
             }
         })
 
     }
-    
+
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then((stream) => {
             const options = {
@@ -212,7 +237,7 @@ window.onload = () => {
 
             const events = []
             _recorder.ondataavailable = ({ data }) => {
-                console.log("DATA: ", data)
+                //console.log("DATA: ", data)
                 events.push(data)
             }
 
@@ -221,7 +246,7 @@ window.onload = () => {
                 stopIt.reset()
                 //console.log(events)
                 const chunks = new Blob(events)
-                console.log("AUDIO CHUNKS: ", chunks)
+                //console.log("AUDIO CHUNKS: ", chunks)
                 const audioURL = URL.createObjectURL(chunks)
                 //console.log("AUDIO LINK: ", audioURL)
                 let newObj = {
@@ -231,14 +256,14 @@ window.onload = () => {
                 oldItems.unshift(newObj);
 
                 localStorage.setItem('savedItems', JSON.stringify(oldItems));
-
+                //location.reload()
                 addTodoToPage(newObj)
 
-                console.log(JSON.parse(localStorage.getItem("savedItems")))
+                //console.log(JSON.parse(localStorage.getItem("savedItems")))
             }
         })
 
-        console.log(JSON.parse(localStorage.getItem("savedItems")))
+    //console.log(JSON.parse(localStorage.getItem("savedItems")))
 }
 
 

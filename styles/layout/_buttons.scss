@@ -75,6 +75,7 @@
         color: $color-light;
         background: $color-danger;
         font-weight: $font-weight-bold;
+        box-shadow: 0 0 10px rgba($color: $color-danger, $alpha: 0.3);
     }
 
     //button sizes
@@ -86,13 +87,31 @@
     &-rounded {
         display: block;
         border-radius: 50%;
-        box-shadow: 0 0 8px rgba($color: #000000, $alpha: 0.8);
 
         &-large {
             width: 12rem;
             height: 12rem;
             padding: 4rem 2rem;
             font-size: large;
+        }
+    }
+
+    &-float {
+        position: fixed;
+        margin: 1rem;
+        padding: 2rem;
+        z-index: 2;
+
+        &--right {
+            right: 0;
+            &-bottom {
+                bottom: 0;
+            }
+        }
+
+        i {
+            font-style: normal;
+            font-size: x-large;
         }
     }
 }
